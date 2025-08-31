@@ -11,7 +11,7 @@ const LoginPage = () => {
     e.preventDefault();
     try {
       // Replace with your backend API URL
-      const response = await axios.post("/api/auth/login", { email, password });
+const response = await axios.post("http://localhost:5000/api/auth/login", { email, password });
       const user = response.data;
       localStorage.setItem("user", JSON.stringify(user));
       window.location.href = `/${user.role}`;
