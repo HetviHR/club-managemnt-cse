@@ -14,7 +14,7 @@ const Sidebar = ({ role }) => {
 
   const menus = {
     student: [
-      { text: "Club Events", path: "/student/events" },
+      { text: "Student Dashboard", path: "/student/events" },
       { text: "Club Details", path: "/student/club" },
       { text: "Requests", path: "/student/requests" },
       ...commonMenu,
