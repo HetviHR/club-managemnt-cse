@@ -36,15 +36,27 @@ const Sidebar = ({ role }) => {
   const listItems = menus[role] || [];
 
   return (
-    <Drawer variant="permanent" anchor="left">
-      <List sx={{ width: 240 }}>
-        {listItems.map(({ text, path }) => (
-          <ListItemButton key={text} onClick={() => navigate(path)}>
-            <ListItemText primary={text} />
-          </ListItemButton>
-        ))}
-      </List>
-    </Drawer>
+    <Drawer
+  variant="permanent"
+  anchor="left"
+  sx={{
+    width: 240,
+    flexShrink: 0,
+    [`& .MuiDrawer-paper`]: {
+      width: 240,
+      boxSizing: "border-box",
+      mt: "64px", // 👈 pushes Sidebar below Navbar (AppBar height)
+    },
+  }}
+>
+  <List>
+    {listItems.map(({ text, path }) => (
+      <ListItemButton key={text} onClick={() => navigate(path)}>
+        <ListItemText primary={text} />
+      </ListItemButton>
+    ))}
+  </List>
+</Drawer>
   );
 };
 

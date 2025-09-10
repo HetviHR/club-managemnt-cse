@@ -7,13 +7,35 @@ import ClubEventsPage from "./student/ClubEventsPage";
 import ClubDetailsPage from "./student/ClubDetailsPage";
 import RequestsPage from "./student/RequestsPage";
 
+const drawerWidth = 240; // Sidebar width
+
 const StudentDashboard = () => {
   return (
     <>
+      {/* Navbar at top */}
       <Navbar />
+
+      {/* Sidebar and content below navbar */}
       <Box sx={{ display: "flex" }}>
-        <Sidebar role="student" />
-        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+        {/* Sidebar (left side) */}
+        <Box
+          sx={{
+            width: drawerWidth,
+            flexShrink: 0,
+            borderRight: "1px solid #ddd",
+          }}
+        >
+          <Sidebar role="student" />
+        </Box>
+
+        {/* Main content (right side) */}
+        <Box
+          component="main"
+          sx={{
+            flexGrow: 1,
+            p: 3,
+          }}
+        >
           <Routes>
             <Route path="/" element={<Navigate to="events" replace />} />
             <Route path="events" element={<ClubEventsPage />} />

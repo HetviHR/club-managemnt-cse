@@ -11,16 +11,16 @@ const Navbar = () => {
   };
 
   return (
-    <AppBar position="static" sx={{ mb: 3 }}>
-      <Toolbar>
-        <Typography variant="h6" sx={{ flexGrow: 1 }}>
-          Club Management System
-        </Typography>
-        <Button color="inherit" onClick={handleLogout}>
-          Logout
-        </Button>
-      </Toolbar>
-    </AppBar>
+    <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+  <Toolbar>
+    <Typography variant="h6" sx={{ flexGrow: 1 }}>
+      Club Management System
+    </Typography>
+    <Button color="inherit" onClick={handleLogout}>
+      Logout
+    </Button>
+  </Toolbar>
+</AppBar>
   );
 };
 
