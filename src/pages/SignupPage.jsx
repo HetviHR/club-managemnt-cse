@@ -7,7 +7,6 @@ const SignUp = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState(""); // student, faculty, hod
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
@@ -24,7 +23,6 @@ const SignUp = () => {
         name,
         email,
         password,
-        role,
       });
 
       // 2️⃣ Immediately log them in
@@ -111,21 +109,6 @@ const SignUp = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-
-        <TextField
-          select
-          label="Role"
-          fullWidth
-          required
-          margin="normal"
-          value={role}
-          onChange={(e) => setRole(e.target.value)}
-        >
-          <MenuItem value="student">Student</MenuItem>
-          <MenuItem value="faculty">Faculty</MenuItem>
-          <MenuItem value="hod">HOD</MenuItem>
-        </TextField>
-
         <Button type="submit" variant="contained" fullWidth sx={{ mt: 2 }}>
           Sign Up
         </Button>
