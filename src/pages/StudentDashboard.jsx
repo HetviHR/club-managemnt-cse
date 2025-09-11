@@ -3,25 +3,24 @@ import Box from "@mui/material/Box";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 import { Routes, Route, Navigate } from "react-router-dom";
-import ClubEventsPage from "./student/ClubEventsPage";
+import StudentBoard from "./StudentBoard";
 import ClubDetailsPage from "./student/ClubDetailsPage";
 import RequestsPage from "./student/RequestsPage";
-
 const StudentDashboard = () => {
   return (
     <>
+      {/* Navbar at top */}
       <Navbar />
-      <Box sx={{ display: "flex" }}>
-        <Sidebar role="student" />
-        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+
+      {/* Sidebar and content below navbar */}
+     
           <Routes>
-            <Route path="/" element={<Navigate to="events" replace />} />
-            <Route path="events" element={<ClubEventsPage />} />
+            <Route path="/" element={<Navigate to="dashboard" replace />} />
+            <Route path="dashboard" element={<StudentBoard />} />
             <Route path="club" element={<ClubDetailsPage />} />
             <Route path="requests" element={<RequestsPage />} />
           </Routes>
-        </Box>
-      </Box>
+       
     </>
   );
 };

@@ -63,7 +63,8 @@ const SignUp = () => {
       }}
     >
       <Typography variant="h5" align="center" mb={3}>
-        Club Management Sign Up
+        Club Management System
+        <h1>Sign up</h1>
       </Typography>
 
       {error && (
