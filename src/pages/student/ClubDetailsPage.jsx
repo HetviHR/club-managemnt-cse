@@ -1,526 +1,141 @@
-import { useNavigate } from "react-router-dom";
-<<<<<<< HEAD
-const ClubDetailsPage = () => {
-const navigate = useNavigate();
-// Dummy user for demonstration; replace with actual user context
-const user = { name: "Student Name", id: "123" };
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
-const handleJoinClub = async (clubName) => {
-  try {
-    await fetch("/api/requests/join", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ club: clubName, student: user.name, studentId: user.id })
-    });
-    alert(`Request to join ${clubName} sent!`);
-  } catch (err) {
-    alert("Failed to send request");
-  }
-};
-=======
->>>>>>> fb9cb2a18748e16dd00a7786a7ad7d1bff10d586
+const ClubDetails = () => {
+    const [club, setClub] = useState(null);
+    const [members, setMembers] = useState([]);
+    const [events, setEvents] = useState([]);
+    const [requestStatus, setRequestStatus] = useState("idle"); // 'idle', 'pending', 'accepted', 'rejected'
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
-const ClubDetailsPage = () => {
-  const navigate = useNavigate();
+    const { clubId } = useParams();
+    const navigate = useNavigate();
+    const backendUrl = "http://localhost:5000";
 
-  const clubs = [
-    {
-      name: "AIML Club",
-      category: "Technology",
-      members: 180,
-      description: "Enhance programming skills through coding challenges, hackathons, and collaborative projects.",
-      image: "/images/logo.png", // public folder image
-      link: "/student/aimlclub",
-    },
-    {
-      name: "CyberKavach Club",
-      category: "Technology",
-      members: 180,
-      description: "Enhance programming skills through coding challenges, hackathons, and collaborative projects.",
-      image: "/images/cyberkavach.jpg",
-      link: "/student/cyber",
-    },
-    {
-      name: "Techgenius Club",
-      category: "Technology",
-      members: 180,
-      description: "Enhance programming skills through coding challenges, hackathons, and collaborative projects.",
-      image: "/images/techgenius_logo.png",
-      link: "/student/tech",
-    },
-    {
-      name: "Eyecoders Club",
-      category: "Technology",
-      members: 180,
-      description: "Enhance programming skills through coding challenges, hackathons, and collaborative projects.",
-      image: "/images/eyecoders.jpg",
-      link: "/student/eyecoders",
-    },
-  ];
+    const user = JSON.parse(localStorage.getItem('user'));
+    const userId = user?._id;
 
-  return (
-    <div style={{ padding: "40px 20px", backgroundColor: "#f8f9fa", minHeight: "100vh" }}>
-      {/* Header */}
-      <div style={{ maxWidth: "1200px", marginBottom: "40px", margin: "20px" }}>
-        <h1 style={{ fontSize: "36px", fontWeight: "bold", color: "#333", marginBottom: "10px", marginLeft: "18%" }}>
-          All Clubs
-        </h1>
-        <p style={{ fontSize: "20px", color: "#666", margin: "0", marginLeft: "19%" }}>
-          Discover and join clubs that match your interests and passions.
-        </p>
-      </div>
+    useEffect(() => {
+        const fetchClubData = async () => {
+            try {
+                // Fetch club details
+                const clubResponse = await axios.get(`${backendUrl}/api/clubs/${clubId}`);
+                setClub(clubResponse.data);
 
-      {/* Club Cards */}
-      <div style={{
-        maxWidth: "2000px",
-        margin: "0 auto",
-        display: "flex",
-        gap: "40px",
-        flexWrap: "wrap",
-        justifyContent: "center",
-      }}>
-        {clubs.map((club, index) => (
-          <div key={index} style={{
-            backgroundColor: 'white',
-            borderRadius: '12px',
-            padding: '30px',
-            width: '350px',
-            boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-            textAlign: 'left'
-          }}>
-<<<<<<< HEAD
-            <div style={{
-              width: '50px',
-              height: '50px',
-              backgroundColor: '#ddd',
-              borderRadius: '50%',
-              marginRight: '15px'
-            }}></div>
-            <div>
-              <h3 style={{
-                fontSize: '20px',
-                fontWeight: 'bold',
-                color: '#333',
-                margin: '0'
-              }}>
-                AIML Club
-              </h3>
-              <span style={{
-                background: 'linear-gradient(145deg, #3998D8, #1E5072)',
-                color: 'white',
-                padding: '4px 12px',
-                borderRadius: '15px',
-                fontSize: '12px',
-                fontWeight: '500'
-              }}>
-                Technology
-              </span>
+                // Fetch members of this club
+                const membersResponse = await axios.get(`${backendUrl}/api/users?clubId=${clubId}`);
+                setMembers(membersResponse.data);
+
+                // Fetch events for this club
+                const eventsResponse = await axios.get(`${backendUrl}/api/events?clubId=${clubId}`);
+                setEvents(eventsResponse.data);
+
+                // Check student's request status
+                if (userId) {
+                    const statusResponse = await axios.get(`${backendUrl}/api/clubs/requests/status?studentId=${userId}&clubId=${clubId}`);
+                    setRequestStatus(statusResponse.data.status);
+                }
+
+                setLoading(false);
+            } catch (err) {
+                setError("Failed to fetch club details. Please try again.");
+                setLoading(false);
+                console.error(err);
+            }
+        };
+
+        if (clubId) {
+            fetchClubData();
+        }
+    }, [clubId, userId]);
+
+    const handleSendRequest = async () => {
+        if (!userId) {
+            alert("You must be logged in to send a request.");
+            return;
+        }
+        try {
+            await axios.post(`${backendUrl}/api/clubs/request`, { studentId: userId, clubId });
+            setRequestStatus("pending");
+            alert("Request sent successfully!");
+        } catch (err) {
+            console.error("Error sending request:", err);
+            alert("Failed to send request.");
+        }
+    };
+    
+    if (loading) {
+        return <div className="loading">Loading club details...</div>;
+    }
+
+    if (error) {
+        return <div className="error">{error}</div>;
+    }
+
+    if (!club) {
+        return <div className="error">Club not found.</div>;
+    }
+
+    return (
+        <div className="club-details-page">
+            <button onClick={() => navigate('/student/clubs')} className="back-button">
+                &larr; Back to Clubs
+            </button>
+            <h1 className="club-title">{club.name}</h1>
+            <p className="club-description">{club.description}</p>
+            
+            <div className="members-section">
+                <h2>Members ({members.length})</h2>
+                <ul>
+                    {members.map(member => (
+                        <li key={member._id}>{member.name}</li>
+                    ))}
+                </ul>
             </div>
-          </div>
-
-          {/* Description */}
-          <p style={{
-            fontSize: '14px',
-            color: '#666',
-            lineHeight: '1.5',
-            marginBottom: '80px'
-          }}>
-            Enhance programming skills through coding challenges, hackathons, and collaborative projects.
-          </p>
-
-          {/* Members and Button */}
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between'
-          }}>
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              fontSize: '14px',
-              color: '#666'
-            }}>
-              <span style={{ marginRight: '8px' }}>👥</span>
-              180 Members
+            
+            <div className="events-section">
+                <h2>Upcoming Events ({events.length})</h2>
+                {events.length > 0 ? (
+                    <ul>
+                        {events.map(event => (
+                            <li key={event._id}>
+                                <h3>{event.title}</h3>
+                                <p>{event.description}</p>
+                                <p>Date: {new Date(event.date).toLocaleDateString()}</p>
+                            </li>
+                        ))}
+                    </ul>
+                ) : (
+                    <p>No upcoming events at this time.</p>
+                )}
             </div>
-            <div style={{ display: 'flex', gap: '10px' }}>
-              <button
-                style={{
-                  background: 'linear-gradient(145deg, #3998D8, #1E5072)',
-                  color: 'white',
-                  border: 'none',
-                  padding: '10px 20px',
-                  borderRadius: '6px',
-                  fontSize: '14px',
-                  fontWeight: '500',
-                  cursor: 'pointer'
-                }}
-                onClick={() => navigate(`/student/aimlclub`)}
-              >
-                View Details
-              </button>
-              <button
-                style={{
-                  background: '#ff9800',
-                  color: 'white',
-                  border: 'none',
-                  padding: '10px 20px',
-                  borderRadius: '6px',
-                  fontSize: '14px',
-                  fontWeight: '500',
-                  cursor: 'pointer'
-                }}
-                onClick={() => handleJoinClub("AIML Club")}
-              >
-                Join Club
-              </button>
+            
+            <div className="request-action-section">
+                {requestStatus === "idle" && (
+                    <button onClick={handleSendRequest} className="join-button">
+                        Join Club
+                    </button>
+                )}
+                {requestStatus === "pending" && (
+                    <button disabled className="pending-button">
+                        Request Pending
+                    </button>
+                )}
+                {requestStatus === "accepted" && (
+                    <button disabled className="accepted-button">
+                        Already a Member
+                    </button>
+                )}
+                {requestStatus === "rejected" && (
+                    <button disabled className="rejected-button">
+                        Request Rejected
+                    </button>
+                )}
             </div>
-          </div>
         </div>
-        <div style={{
-          backgroundColor: 'white',
-          borderRadius: '12px',
-          padding: '30px',
-          width: '350px',
-          boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-          textAlign: 'left'
-        }}>
-=======
->>>>>>> fb9cb2a18748e16dd00a7786a7ad7d1bff10d586
-            {/* Club Header */}
-            <div style={{ display: 'flex', alignItems: 'center', marginBottom: '15px' }}>
-              <img 
-                src={club.image} 
-                alt={club.name} 
-                style={{
-                  width: '50px',
-                  height: '50px',
-                  borderRadius: '10px',
-                  marginRight: '15px',
-                  objectFit: 'cover'
-                }}
-              />
-              <div>
-                <h3 style={{ fontSize: '20px', fontWeight: 'bold', color: '#333', margin: '0' }}>
-                  {club.name}
-                </h3>
-                <span style={{
-                  background: 'linear-gradient(145deg, #3998D8, #1E5072)',
-                  color: 'white',
-                  padding: '4px 12px',
-                  borderRadius: '15px',
-                  fontSize: '12px',
-                  fontWeight: '500'
-                }}>
-                  {club.category}
-                </span>
-              </div>
-            </div>
-
-            {/* Description */}
-            <p style={{ fontSize: '14px', color: '#666', lineHeight: '1.5', marginBottom: '80px' }}>
-              {club.description}
-            </p>
-
-            {/* Members and Button */}
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-              <div style={{ display: 'flex', alignItems: 'center', fontSize: '14px', color: '#666' }}>
-                <span style={{ marginRight: '8px' }}>👥</span>
-                {club.members} Members
-              </div>
-              <button style={{
-                background: 'linear-gradient(145deg, #3998D8, #1E5072)',
-                color: 'white',
-                border: 'none',
-                padding: '10px 20px',
-                borderRadius: '6px',
-                fontSize: '14px',
-                fontWeight: '500',
-                cursor: 'pointer'
-              }}
-              onClick={() => navigate(club.link)}>
-                View Details
-              </button>
-            </div>
-          </div>
-<<<<<<< HEAD
-
-          {/* Description */}
-          <p style={{
-            fontSize: '14px',
-            color: '#666',
-            lineHeight: '1.5',
-            marginBottom: '80px'
-          }}>
-            Enhance programming skills through coding challenges, hackathons, and collaborative projects.
-          </p>
-
-          {/* Members and Button */}
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between'
-          }}>
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              fontSize: '14px',
-              color: '#666'
-            }}>
-              <span style={{ marginRight: '8px' }}>👥</span>
-              180 Members
-            </div>
-            <div style={{ display: 'flex', gap: '10px' }}>
-              <button
-                style={{
-                  background: 'linear-gradient(145deg, #3998D8, #1E5072)',
-                  color: 'white',
-                  border: 'none',
-                  padding: '10px 20px',
-                  borderRadius: '6px',
-                  fontSize: '14px',
-                  fontWeight: '500',
-                  cursor: 'pointer'
-                }}
-                onClick={() => handleJoinClub("CyberKavach Club")}
-              >
-                Join Club
-              </button>
-              <button
-                style={{
-                  background: 'linear-gradient(145deg, #3998D8, #1E5072)',
-                  color: 'white',
-                  border: 'none',
-                  padding: '10px 20px',
-                  borderRadius: '6px',
-                  fontSize: '14px',
-                  fontWeight: '500',
-                  cursor: 'pointer'
-                }}
-                onClick={() => navigate(`/student/tech`)}
-              >
-                View Details
-              </button>
-            </div>
-          </div>
-        </div>
-        <div style={{
-          backgroundColor: 'white',
-          borderRadius: '12px',
-          padding: '30px',
-          width: '350px',
-          boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-          textAlign: 'left'
-        }}>
-          {/* Club Header */}
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            marginBottom: '15px'
-          }}>
-            <div style={{
-              width: '50px',
-              height: '50px',
-              backgroundColor: '#ddd',
-              borderRadius: '50%',
-              marginRight: '15px'
-            }}></div>
-            <div>
-              <h3 style={{
-                fontSize: '20px',
-                fontWeight: 'bold',
-                color: '#333',
-                margin: '0'
-              }}>
-                Techgenius Club
-              </h3>
-              <span style={{
-                background: 'linear-gradient(145deg, #3998D8, #1E5072)',
-                color: 'white',
-                padding: '4px 12px',
-                borderRadius: '15px',
-                fontSize: '12px',
-                fontWeight: '500'
-              }}>
-                Technology
-              </span>
-            </div>
-          </div>
-
-          {/* Description */}
-          <p style={{
-            fontSize: '14px',
-            color: '#666',
-            lineHeight: '1.5',
-            marginBottom: '80px'
-          }}>
-            Enhance programming skills through coding challenges, hackathons, and collaborative projects.
-          </p>
-
-          {/* Members and Button */}
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between'
-          }}>
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              fontSize: '14px',
-              color: '#666'
-            }}>
-              <span style={{ marginRight: '8px' }}>👥</span>
-              180 Members
-            </div>
-            <div style={{ display: 'flex', gap: '10px' }}>
-              <button
-                style={{
-                  background: '#ff9800',
-                  color: 'white',
-                  border: 'none',
-                  padding: '10px 20px',
-                  borderRadius: '6px',
-                  fontSize: '14px',
-                  fontWeight: '500',
-                  cursor: 'pointer'
-                }}
-                onClick={() => handleJoinClub("Techgenius Club")}
-              >
-                Join Club
-              </button>
-              <button
-                style={{
-                  background: 'linear-gradient(145deg, #3998D8, #1E5072)',
-                  color: 'white',
-                  border: 'none',
-                  padding: '10px 20px',
-                  borderRadius: '6px',
-                  fontSize: '14px',
-                  fontWeight: '500',
-                  cursor: 'pointer'
-                }}
-                onClick={() => navigate(`/student/tech`)}
-              >
-                View Details
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* Eyecoders Club Card */}
-        <div style={{
-          backgroundColor: 'white',
-          borderRadius: '12px',
-          padding: '30px',
-          width: '350px',
-          boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-          textAlign: 'left'
-        }}>
-          {/* Club Header */}
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            marginBottom: '15px'
-          }}>
-            <img 
-  src={/student/}
-  alt="AIML Club" 
-  style={{
-    width: '50px',
-    height: '50px',
-    borderRadius: '50%',
-    marginRight: '15px',
-    objectFit: 'cover'
-  }} 
-/>
-            <div>
-              <h3 style={{
-                fontSize: '20px',
-                fontWeight: 'bold',
-                color: '#333',
-                margin: '0'
-              }}>
-                Eyecoders club
-              </h3>
-              <span style={{
-                background: 'linear-gradient(145deg, #3998D8, #1E5072)',
-                color: 'white',
-                padding: '4px 12px',
-                borderRadius: '15px',
-                fontSize: '12px',
-                fontWeight: '500'
-              }}>
-                Technology
-              </span>
-            </div>
-          </div>
-
-          {/* Description */}
-          <p style={{
-            fontSize: '14px',
-            color: '#666',
-            lineHeight: '1.5',
-            marginBottom: '80px'
-          }}>
-            Enhance programming skills through coding challenges, hackathons, and collaborative projects.
-          </p>
-
-          {/* Members and Button */}
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between'
-          }}>
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              fontSize: '14px',
-              color: '#666'
-            }}>
-              <span style={{ marginRight: '8px' }}>👥</span>
-              180 Members
-            </div>
-            <div style={{ display: 'flex', gap: '10px' }}>
-              <button
-                style={{
-                  background: '#ff9800',
-                  color: 'white',
-                  border: 'none',
-                  padding: '10px 20px',
-                  borderRadius: '6px',
-                  fontSize: '14px',
-                  fontWeight: '500',
-                  cursor: 'pointer'
-                }}
-                onClick={() => handleJoinClub("Eyecoders Club")}
-              >
-                Join Club
-              </button>
-              <button
-                style={{
-                  background: 'linear-gradient(145deg, #3998D8, #1E5072)',
-                  color: 'white',
-                  border: 'none',
-                  padding: '10px 20px',
-                  borderRadius: '6px',
-                  fontSize: '14px',
-                  fontWeight: '500',
-                  cursor: 'pointer'
-                }}
-                onClick={() => navigate(`/student/tech`)}
-              >
-                View Details
-              </button>
-            </div>
-          </div>
-        </div>
-
-=======
-        ))}
->>>>>>> fb9cb2a18748e16dd00a7786a7ad7d1bff10d586
-      </div>
-    </div>
-  )
+    );
 };
 
-export default ClubDetailsPage;
+export default ClubDetails;

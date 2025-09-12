@@ -5,14 +5,13 @@ import Sidebar from "../components/Sidebar";
 import { Routes, Route, Navigate } from "react-router-dom";
 import StudentBoard from "./StudentBoard";
 import ClubDetailsPage from "./student/ClubDetailsPage";
-import RequestsPage from "./student/RequestsPage";
+import RequestsPage from "../components/RequestsPage";
 
 import EventClub from "./student/ClubEventsPage";
-import EventClub1 from "./student/ClubEvent2";
+import EventClub1 from "./student/clubEvent2";
 const StudentDashboard = () => {
   return (
     <>
-      {/* Navbar at top */}
       <Navbar />
 
       {/* Sidebar and content below navbar */}
@@ -23,7 +22,7 @@ const StudentDashboard = () => {
             <Route path="club" element={<ClubDetailsPage />} />
             <Route path="aimlclub" element={<EventClub />}/>
             <Route path="tech" element={<EventClub1 />}/>
-
+            <Route path="myrequests" element={<RequestsPage />} />
           </Routes>
        
     </>

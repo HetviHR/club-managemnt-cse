@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import authRoutes from "./routes/authRoutes.js";
 import clubRoutes from "./routes/clubRoutes.js";
 import eventRoutes from "./routes/eventRoutes.js";
+import requestRoutes from "./routes/requestRoutes.js";
 
 dotenv.config();
 
@@ -18,6 +19,7 @@ app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/clubs", clubRoutes);
 app.use("/api/events", eventRoutes);
+app.use("/api/requests", requestRoutes);
 mongoose
   .connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("MongoDB connected"))

@@ -34,7 +34,7 @@ export default function FacultyDashboard() {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const requestsResponse = await axios.get(`${backendUrl}/api/clubs/requests?clubId=${facultyClubId}`);
+  const requestsResponse = await axios.get(`${backendUrl}/api/requests?clubId=${facultyClubId}`);
         setRequests(requestsResponse.data);
 
         const eventsResponse = await axios.get(`${backendUrl}/api/events?clubId=${facultyClubId}`);
@@ -54,8 +54,8 @@ export default function FacultyDashboard() {
   
   const handleApprove = async (requestId) => {
     try {
-      await axios.put(`${backendUrl}/api/clubs/request/${requestId}`, { status: "accepted" });
-      setRequests(requests.filter((req) => req._id !== requestId));
+      await axios.patch(`${backendUrl}/api/requests/${requestId}`, { status: "accepted" });
+      setRequests(requests.map((req) => req._id === requestId ? { ...req, status: "accepted" } : req));
     } catch (err) {
       console.error("Failed to approve request:", err);
     }
@@ -63,8 +63,8 @@ export default function FacultyDashboard() {
 
   const handleReject = async (requestId) => {
     try {
-      await axios.put(`${backendUrl}/api/clubs/request/${requestId}`, { status: "rejected" });
-      setRequests(requests.filter((req) => req._id !== requestId));
+      await axios.patch(`${backendUrl}/api/requests/${requestId}`, { status: "rejected" });
+      setRequests(requests.map((req) => req._id === requestId ? { ...req, status: "rejected" } : req));
     } catch (err) {
       console.error("Failed to reject request:", err);
     }

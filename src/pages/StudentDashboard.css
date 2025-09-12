@@ -1,0 +1,68 @@
+.student-dashboard {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f8f9fa;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.dashboard-container {
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.request-section {
+  margin-top: 30px;
+  padding: 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+}
+
+.request-section h2 {
+  color: #1e5072;
+  margin-top: 0;
+}
+
+.request-section select,
+.request-section button {
+  padding: 10px 15px;
+  margin-top: 10px;
+  border-radius: 5px;
+  border: 1px solid #ced4da;
+}
+
+.request-section button {
+  background-color: #3998D8;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.request-section button:hover {
+  background-color: #1E5072;
+}
+
+.status-section {
+  padding: 15px;
+  border-radius: 8px;
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+.status-section.pending {
+  background-color: #fff3cd;
+  color: #856404;
+  border-color: #ffeeba;
+}
+
+.status-section.accepted {
+  background-color: #d4edda;
+  color: #155724;
+  border-color: #c3e6cb;
+}
