@@ -29,6 +29,9 @@ export const register = async (req, res) => {
       email,
       password: hashedPassword,
       role,
+      // Temporarily assign a placeholder clubId for faculty/hod
+      // In a real app, this would be managed by an admin assigning them to a club
+      clubId: role !== 'student' ? '65a04e90c681f215f79549f4' : null,
     });
 
     res.status(201).json({ message: "User registered successfully", user: newUser });
@@ -59,7 +62,7 @@ export const login = async (req, res) => {
 
     res.status(200).json({
       message: "Login successful",
-      user: { id: user._id, name: user.name, email: user.email, role: user.role },
+      user: { id: user._id, name: user.name, email: user.email, role: user.role, clubId: user.clubId },
       token,
     });
   } catch (err) {

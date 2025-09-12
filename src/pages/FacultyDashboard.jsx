@@ -21,21 +21,20 @@ export default function FacultyDashboard() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Correct URL for your backend server
   const backendUrl = "http://localhost:5000";
 
   // Get user info from localStorage (simulating login)
   const user = JSON.parse(localStorage.getItem("user"));
-  const facultyClubId = user?.clubId;
+  const facultyClubId = user?.clubId; 
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        // Fetch pending requests for the faculty's club
         const requestsResponse = await axios.get(`${backendUrl}/api/clubs/requests?clubId=${facultyClubId}`);
         setRequests(requestsResponse.data);
 
-        // Fetch events for the faculty's club
         const eventsResponse = await axios.get(`${backendUrl}/api/events?clubId=${facultyClubId}`);
         setEvents(eventsResponse.data);
       } catch (err) {
@@ -50,7 +49,7 @@ export default function FacultyDashboard() {
       fetchData();
     }
   }, [facultyClubId]);
-
+  
   const handleApprove = async (requestId) => {
     try {
       await axios.put(`${backendUrl}/api/clubs/request/${requestId}`, { status: "accepted" });
@@ -68,7 +67,7 @@ export default function FacultyDashboard() {
       console.error("Failed to reject request:", err);
     }
   };
-  
+
   const handleSaveEvent = async (eventData) => {
     try {
       if (editingEvent) {
@@ -103,6 +102,14 @@ export default function FacultyDashboard() {
     setModalOpen(true);
   };
   
+  if (loading) {
+    return <div className="loading">Loading...</div>;
+  }
+
+  if (error) {
+    return <div className="error">{error}</div>;
+  }
+
   return (
     <div className="dashboard">
       <Navbar />
