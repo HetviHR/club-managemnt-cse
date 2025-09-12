@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-// import './EventModal.css';
 
 export default function EventModal({ show, onClose, onSave, eventData }) {
   const [formData, setFormData] = useState({
@@ -18,7 +17,11 @@ export default function EventModal({ show, onClose, onSave, eventData }) {
         date: formattedDate,
       });
     } else {
-      setFormData({ title: '', description: '', date: '' });
+      setFormData({
+        title: '',
+        description: '',
+        date: '',
+      });
     }
   }, [eventData]);
 
