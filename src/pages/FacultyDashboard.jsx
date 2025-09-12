@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from 'axios';
 import Navbar from "../components/Navbar.jsx";
 import ClubHeader from "../components/ClubHeader.jsx";
-import Request from "../components/StudentRequests.jsx"; 
+import Request from "../components/RequestsPage.jsx";
 import EventList from "../components/EventList.jsx";
 import EventModal from "../components/EventModal.jsx";
 import "./FacultyDashboard.css";
@@ -9,36 +10,88 @@ import "./FacultyDashboard.css";
 export default function FacultyDashboard() {
   const [club] = useState({
     name: "TechGenius Club",
-    description:
-      "Enhance programming skills through coding challenges, hackathons, and collaborative projects.",
+    description: "Enhance programming skills through coding challenges, hackathons, and collaborative projects.",
     banner: "/techgenius.png",
   });
-
-  const [requests, setRequests] = useState([
-    { _id: "1", name: "Rahul Sharma", email: "rahul@charusat.edu.in", branch: "CSE" },
-    { _id: "2", name: "Priya Patel", email: "priya@charusat.edu.in", branch: "IT" },
-  ]);
-
-  const [events, setEvents] = useState([
-    {
-      _id: "1",
-      title: "Hackathon 2025",
-      description: "24-hour coding competition",
-      date: "2025-09-20",
-    },
-    {
-      _id: "2",
-      title: "AI Workshop",
-      description: "Learn basics of AI/ML",
-      date: "2025-10-10",
-    },
-  ]);
-
+  
+  const [requests, setRequests] = useState([]);
+  const [events, setEvents] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [editingEvent, setEditingEvent] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const handleApprove = (id) => setRequests(requests.filter((r) => r._id !== id));
-  const handleReject = (id) => setRequests(requests.filter((r) => r._id !== id));
+  const backendUrl = "http://localhost:5000";
+
+  // Get user info from localStorage (simulating login)
+  const user = JSON.parse(localStorage.getItem("user"));
+  const facultyClubId = user?.clubId;
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        // Fetch pending requests for the faculty's club
+        const requestsResponse = await axios.get(`${backendUrl}/api/clubs/requests?clubId=${facultyClubId}`);
+        setRequests(requestsResponse.data);
+
+        // Fetch events for the faculty's club
+        const eventsResponse = await axios.get(`${backendUrl}/api/events?clubId=${facultyClubId}`);
+        setEvents(eventsResponse.data);
+      } catch (err) {
+        setError("Failed to fetch data.");
+        console.error("Error fetching data:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (facultyClubId) {
+      fetchData();
+    }
+  }, [facultyClubId]);
+
+  const handleApprove = async (requestId) => {
+    try {
+      await axios.put(`${backendUrl}/api/clubs/request/${requestId}`, { status: "accepted" });
+      setRequests(requests.filter((req) => req._id !== requestId));
+    } catch (err) {
+      console.error("Failed to approve request:", err);
+    }
+  };
+
+  const handleReject = async (requestId) => {
+    try {
+      await axios.put(`${backendUrl}/api/clubs/request/${requestId}`, { status: "rejected" });
+      setRequests(requests.filter((req) => req._id !== requestId));
+    } catch (err) {
+      console.error("Failed to reject request:", err);
+    }
+  };
+  
+  const handleSaveEvent = async (eventData) => {
+    try {
+      if (editingEvent) {
+        const response = await axios.put(`${backendUrl}/api/events/${editingEvent._id}`, eventData);
+        setEvents(events.map((e) => (e._id === editingEvent._id ? response.data : e)));
+      } else {
+        const response = await axios.post(`${backendUrl}/api/events`, { ...eventData, clubId: facultyClubId });
+        setEvents([...events, response.data]);
+      }
+      setModalOpen(false);
+    } catch (err) {
+      console.error("Failed to save event:", err);
+    }
+  };
+
+  const handleDeleteEvent = async (eventId) => {
+    try {
+      await axios.delete(`${backendUrl}/api/events/${eventId}`);
+      setEvents(events.filter((e) => e._id !== eventId));
+    } catch (err) {
+      console.error("Failed to delete event:", err);
+    }
+  };
 
   const handleAddEvent = () => {
     setEditingEvent(null);
@@ -49,22 +102,7 @@ export default function FacultyDashboard() {
     setEditingEvent(event);
     setModalOpen(true);
   };
-
-  const handleDeleteEvent = (id) => setEvents(events.filter((e) => e._id !== id));
-
-  const handleSaveEvent = (eventData) => {
-    if (editingEvent) {
-      setEvents(
-        events.map((e) =>
-          e._id === editingEvent._id ? { ...eventData, _id: editingEvent._id } : e
-        )
-      );
-    } else {
-      setEvents([...events, { ...eventData, _id: Date.now().toString() }]);
-    }
-    setModalOpen(false);
-  };
-
+  
   return (
     <div className="dashboard">
       <Navbar />
