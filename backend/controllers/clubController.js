@@ -9,7 +9,7 @@ export const createRequest = async (req, res) => {
     const newRequest = new Request({ studentId, clubId });
     await newRequest.save();
     res.status(201).json({ message: "Request sent successfully" });
-  } catch (error) {
+  } catch {
     res.status(500).json({ message: "Server error" });
   }
 };
@@ -32,7 +32,7 @@ export const updateRequestStatus = async (req, res) => {
     }
 
     res.json(request);
-  } catch (error) {
+  } catch  {
     res.status(500).json({ message: "Server error" });
   }
 };
@@ -42,7 +42,7 @@ export const getRequests = async (req, res) => {
   try {
     const requests = await Request.find({ status: "pending" }).populate('studentId').populate('clubId');
     res.json(requests);
-  } catch (error) {
+  } catch  {
     res.status(500).json({ message: "Server error" });
   }
 };
@@ -52,7 +52,7 @@ export const getClubs = async (req, res) => {
   try {
     const clubs = await Club.find();
     res.json(clubs);
-  } catch (error) {
+  } catch  {
     res.status(500).json({ message: "Server error" });
   }
 };
