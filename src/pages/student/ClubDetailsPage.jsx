@@ -1,6 +1,21 @@
 import { useNavigate } from "react-router-dom";
 const ClubDetailsPage = () => {
 const navigate = useNavigate();
+// Dummy user for demonstration; replace with actual user context
+const user = { name: "Student Name", id: "123" };
+
+const handleJoinClub = async (clubName) => {
+  try {
+    await fetch("/api/requests/join", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ club: clubName, student: user.name, studentId: user.id })
+    });
+    alert(`Request to join ${clubName} sent!`);
+  } catch (err) {
+    alert("Failed to send request");
+  }
+};
 
   return(
     <div style={{
@@ -113,20 +128,38 @@ const navigate = useNavigate();
               <span style={{ marginRight: '8px' }}>👥</span>
               180 Members
             </div>
-            <button style={{
-    background: 'linear-gradient(145deg, #3998D8, #1E5072)',
-    color: 'white',
-    border: 'none',
-    padding: '10px 20px',
-    borderRadius: '6px',
-    fontSize: '14px',
-    fontWeight: '500',
-    cursor: 'pointer'
-  }}
-              onClick={()=> navigate(`/student/aimlclub`)} 
-          >
-              View Details
-            </button>
+            <div style={{ display: 'flex', gap: '10px' }}>
+              <button
+                style={{
+                  background: 'linear-gradient(145deg, #3998D8, #1E5072)',
+                  color: 'white',
+                  border: 'none',
+                  padding: '10px 20px',
+                  borderRadius: '6px',
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  cursor: 'pointer'
+                }}
+                onClick={() => navigate(`/student/aimlclub`)}
+              >
+                View Details
+              </button>
+              <button
+                style={{
+                  background: '#ff9800',
+                  color: 'white',
+                  border: 'none',
+                  padding: '10px 20px',
+                  borderRadius: '6px',
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  cursor: 'pointer'
+                }}
+                onClick={() => handleJoinClub("AIML Club")}
+              >
+                Join Club
+              </button>
+            </div>
           </div>
         </div>
         <div style={{
@@ -197,18 +230,38 @@ const navigate = useNavigate();
               <span style={{ marginRight: '8px' }}>👥</span>
               180 Members
             </div>
-            <button style={{
-              background: 'linear-gradient(145deg, #3998D8, #1E5072)',
-              color: 'white',
-              border: 'none',
-              padding: '10px 20px',
-              borderRadius: '6px',
-              fontSize: '14px',
-              fontWeight: '500',
-              cursor: 'pointer'
-            }}>
-              View Details
-            </button>
+            <div style={{ display: 'flex', gap: '10px' }}>
+              <button
+                style={{
+                  background: 'linear-gradient(145deg, #3998D8, #1E5072)',
+                  color: 'white',
+                  border: 'none',
+                  padding: '10px 20px',
+                  borderRadius: '6px',
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  cursor: 'pointer'
+                }}
+                onClick={() => handleJoinClub("CyberKavach Club")}
+              >
+                Join Club
+              </button>
+              <button
+                style={{
+                  background: 'linear-gradient(145deg, #3998D8, #1E5072)',
+                  color: 'white',
+                  border: 'none',
+                  padding: '10px 20px',
+                  borderRadius: '6px',
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  cursor: 'pointer'
+                }}
+                onClick={() => navigate(`/student/tech`)}
+              >
+                View Details
+              </button>
+            </div>
           </div>
         </div>
         <div style={{
@@ -279,19 +332,38 @@ const navigate = useNavigate();
               <span style={{ marginRight: '8px' }}>👥</span>
               180 Members
             </div>
-            <button style={{
-              background: 'linear-gradient(145deg, #3998D8, #1E5072)',
-              color: 'white',
-              border: 'none',
-              padding: '10px 20px',
-              borderRadius: '6px',
-              fontSize: '14px',
-              fontWeight: '500',
-              cursor: 'pointer'
-            }}
-            onClick={()=> navigate(`/student/tech`)} >
-              View Details
-            </button>
+            <div style={{ display: 'flex', gap: '10px' }}>
+              <button
+                style={{
+                  background: '#ff9800',
+                  color: 'white',
+                  border: 'none',
+                  padding: '10px 20px',
+                  borderRadius: '6px',
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  cursor: 'pointer'
+                }}
+                onClick={() => handleJoinClub("Techgenius Club")}
+              >
+                Join Club
+              </button>
+              <button
+                style={{
+                  background: 'linear-gradient(145deg, #3998D8, #1E5072)',
+                  color: 'white',
+                  border: 'none',
+                  padding: '10px 20px',
+                  borderRadius: '6px',
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  cursor: 'pointer'
+                }}
+                onClick={() => navigate(`/student/tech`)}
+              >
+                View Details
+              </button>
+            </div>
           </div>
         </div>
 
@@ -368,19 +440,38 @@ const navigate = useNavigate();
               <span style={{ marginRight: '8px' }}>👥</span>
               180 Members
             </div>
-            <button style={{
-              background: 'linear-gradient(145deg, #3998D8, #1E5072)',
-              color: 'white',
-              border: 'none',
-              padding: '10px 20px',
-              borderRadius: '6px',
-              fontSize: '14px',
-              fontWeight: '500',
-              cursor: 'pointer'
-            }}
-            onClick={()=> navigate(`/student/tech`)} >
-              View Details
-            </button>
+            <div style={{ display: 'flex', gap: '10px' }}>
+              <button
+                style={{
+                  background: '#ff9800',
+                  color: 'white',
+                  border: 'none',
+                  padding: '10px 20px',
+                  borderRadius: '6px',
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  cursor: 'pointer'
+                }}
+                onClick={() => handleJoinClub("Eyecoders Club")}
+              >
+                Join Club
+              </button>
+              <button
+                style={{
+                  background: 'linear-gradient(145deg, #3998D8, #1E5072)',
+                  color: 'white',
+                  border: 'none',
+                  padding: '10px 20px',
+                  borderRadius: '6px',
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  cursor: 'pointer'
+                }}
+                onClick={() => navigate(`/student/tech`)}
+              >
+                View Details
+              </button>
+            </div>
           </div>
         </div>
 
