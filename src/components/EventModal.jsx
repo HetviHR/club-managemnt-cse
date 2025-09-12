@@ -1,62 +1,82 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
+// import './EventModal.css';
 
 export default function EventModal({ show, onClose, onSave, eventData }) {
-  const [form, setForm] = useState({ title: "", description: "", date: "" });
+  const [formData, setFormData] = useState({
+    title: '',
+    description: '',
+    date: '',
+  });
 
   useEffect(() => {
-    if (eventData) setForm(eventData);
+    if (eventData) {
+      // Correctly format the date for the input field
+      const formattedDate = eventData.date ? eventData.date.substring(0, 10) : '';
+      setFormData({
+        title: eventData.title,
+        description: eventData.description,
+        date: formattedDate,
+      });
+    } else {
+      setFormData({ title: '', description: '', date: '' });
+    }
   }, [eventData]);
 
-  if (!show) return null;
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSave(form);
-    setForm({ title: "", description: "", date: "" });
+    onSave(formData);
   };
 
+  if (!show) {
+    return null;
+  }
+
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-      <div className="bg-white rounded-xl p-6 w-96 shadow-lg">
-        <h3 className="text-xl font-bold mb-4">
-          {eventData ? "Edit Event" : "Add Event"}
-        </h3>
-        <form onSubmit={handleSubmit} className="flex flex-col gap-3">
-          <input
-            type="text"
-            placeholder="Title"
-            value={form.title}
-            onChange={(e) => setForm({ ...form, title: e.target.value })}
-            className="border p-2 rounded-lg"
-            required
-          />
-          <textarea
-            placeholder="Description"
-            value={form.description}
-            onChange={(e) => setForm({ ...form, description: e.target.value })}
-            className="border p-2 rounded-lg"
-            required
-          />
-          <input
-            type="date"
-            value={form.date}
-            onChange={(e) => setForm({ ...form, date: e.target.value })}
-            className="border p-2 rounded-lg"
-            required
-          />
-          <div className="flex justify-end gap-2 mt-3">
-            <button
-              type="button"
-              onClick={onClose}
-              className="px-4 py-2 bg-gray-400 text-white rounded-lg"
-            >
+    <div className="modal-overlay">
+      <div className="modal-content">
+        <div className="modal-header">
+          <h2>{eventData ? 'Edit Event' : 'Add Event'}</h2>
+          <button onClick={onClose}>&times;</button>
+        </div>
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label>Title</label>
+            <input
+              type="text"
+              name="title"
+              value={formData.title}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label>Description</label>
+            <textarea
+              name="description"
+              value={formData.description}
+              onChange={handleChange}
+              required
+            ></textarea>
+          </div>
+          <div className="form-group">
+            <label>Date</label>
+            <input
+              type="date"
+              name="date"
+              value={formData.date}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="modal-footer">
+            <button type="submit">Save</button>
+            <button type="button" onClick={onClose}>
               Cancel
-            </button>
-            <button
-              type="submit"
-              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
-            >
-              Save
             </button>
           </div>
         </form>

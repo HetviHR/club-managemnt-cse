@@ -10,14 +10,10 @@ import "./FacultyDashboard.css";
 export default function FacultyDashboard() {
   const [club] = useState({
     name: "TechGenius Club",
-<<<<<<< HEAD
-    description: "Enhance programming skills through coding challenges, hackathons, and collaborative projects.",
-    banner: "/techgenius.png",
-=======
+
     description:
       "Enhance programming skills through coding challenges, hackathons, and collaborative projects.",
     banner: "images/techgenius_logo.png",
->>>>>>> 69049c6c45c3300281afbd0b9e806c9214761a9a
   });
   
   const [requests, setRequests] = useState([]);

@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-=======
-
->>>>>>> 69049c6c45c3300281afbd0b9e806c9214761a9a
 import React from "react";
 
 export default function EventCard({ event, onEdit, onDelete }) {
