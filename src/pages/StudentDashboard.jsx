@@ -5,7 +5,6 @@ import Sidebar from "../components/Sidebar";
 import { Routes, Route, Navigate } from "react-router-dom";
 import StudentBoard from "./StudentBoard";
 import ClubDetailsPage from "./student/ClubDetailsPage";
-// import RequestsPage from "./student/RequestsPage";
 import EventClub from "./student/ClubEventsPage";
 const StudentDashboard = () => {
   return (
@@ -20,7 +19,6 @@ const StudentDashboard = () => {
             <Route path="dashboard" element={<StudentBoard />} />
             <Route path="club" element={<ClubDetailsPage />} />
             <Route path="events" element={<EventClub />}/>
-            <Route path="requests" element={<RequestsPage />} />
           </Routes>
        
     </>
