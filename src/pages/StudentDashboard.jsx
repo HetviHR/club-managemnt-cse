@@ -5,8 +5,12 @@ import Sidebar from "../components/Sidebar";
 import { Routes, Route, Navigate } from "react-router-dom";
 import StudentBoard from "./StudentBoard";
 import ClubDetailsPage from "./student/ClubDetailsPage";
+<<<<<<< HEAD
 import RequestsPage from "./student/RequestsPage";
+=======
+>>>>>>> 69049c6c45c3300281afbd0b9e806c9214761a9a
 import EventClub from "./student/ClubEventsPage";
+import EventClub1 from "./student/ClubEvent2";
 const StudentDashboard = () => {
   return (
     <>
@@ -19,8 +23,9 @@ const StudentDashboard = () => {
             <Route path="/" element={<Navigate to="dashboard" replace />} />
             <Route path="dashboard" element={<StudentBoard />} />
             <Route path="club" element={<ClubDetailsPage />} />
-            <Route path="events" element={<EventClub />}/>
-            <Route path="requests" element={<RequestsPage />} />
+            <Route path="aimlclub" element={<EventClub />}/>
+            <Route path="tech" element={<EventClub1 />}/>
+
           </Routes>
        
     </>

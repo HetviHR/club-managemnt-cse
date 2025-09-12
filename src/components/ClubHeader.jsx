@@ -1,18 +1,17 @@
 import React from "react";
+import "./ClubHeader.css";
 
 export default function ClubHeader({ club }) {
-  if (!club) return null;
-
   return (
-    <div className="bg-white shadow-lg rounded-xl p-6 flex items-center gap-6">
+    <div className="club-header">
       <img
-        src={club.banner || "/default-banner.png"}
-        alt="Club Banner"
-        className="w-32 h-32 object-cover rounded-xl"
+        src={club.banner}
+        alt={club.name}
+        className="club-banner"
       />
-      <div>
-        <h2 className="text-2xl font-bold">{club.name}</h2>
-        <p className="text-gray-600">{club.description}</p>
+      <div className="club-info">
+        <h1>{club.name}</h1>
+        <p>{club.description}</p>
       </div>
     </div>
   );
