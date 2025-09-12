@@ -19,7 +19,7 @@
 }
 
 .stat-box {
-  background: #1e88e5;
+  background: linear-gradient(145deg, #3998D8, #1E5072);
   color: white;
   padding: 20px;
   border-radius: 10px;
@@ -51,6 +51,6 @@
   font-size: 20px;
   margin-bottom: 12px;
   color: #1565c0;
-  border-bottom: 1px solid #bbdefb;
+  border-bottom: 1px solid linear-gradient(145deg, #3998D8, #1E5072);
   padding-bottom: 6px;
 }

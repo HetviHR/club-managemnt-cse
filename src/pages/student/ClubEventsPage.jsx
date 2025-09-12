@@ -29,13 +29,13 @@ const EventClub = () => {
       name: "Amit Thakkar",
       role: "Convener",
       department: "CSPIT CSE",
-      avatar: '/images/logo.png', 
+      avatar: '/images/amit.png', 
     },
     {
       name: "Abhishek Patel",
       role: "Faculty Coordinator",
       department: "CSPIT CSE",
-      avatar: '/images/logo.png',
+      avatar: '/images/s2.png',
     },
     {
       name: "Harshul Yagnik",

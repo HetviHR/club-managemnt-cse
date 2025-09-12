@@ -1,18 +1,4 @@
-// src/pages/HODDashboard.jsx
-import React from "react";
-import { Card, CardContent } from "../components/ui/card";
-import { Users, BookOpen, ClipboardList, CheckCircle } from "lucide-react";
-
-const HODDashboard = ({ user }) => {
-  // role-based access
-  // if (!user || user.role !== "hod") {
-  //   return (
-  //     <div className="flex items-center justify-center h-screen text-red-500 text-xl">
-  //       Access Denied: HOD Only
-  //     </div>
-  //   );
-  // }
-
+function HODDashboard() {
   return (
     <div className="min-h-screen bg-gray-50 p-6">
       {/* Header */}

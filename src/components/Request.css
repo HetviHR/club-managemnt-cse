@@ -7,9 +7,8 @@
 .requests-table th {
   text-align: left;
   padding: 10px 16px;
-  background: #1565c0;
+  background:linear-gradient(145deg, #3998D8, #1E5072);
   color: white;
-  border-radius: 6px 6px 0 0;
 }
 
 .requests-table td {
