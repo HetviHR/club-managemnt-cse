@@ -1,0 +1,26 @@
+.club-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.club-banner {
+  max-width: 260px;
+  height: auto;
+  margin-bottom: 16px;
+}
+
+.club-info h1 {
+  font-size: 28px;
+  font-weight: bold;
+  color: #1565c0;
+  margin-bottom: 8px;
+}
+
+.club-info p {
+  font-size: 16px;
+  color: #555;
+  max-width: 600px;
+}

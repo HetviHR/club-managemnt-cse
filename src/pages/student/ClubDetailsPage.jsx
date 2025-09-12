@@ -123,7 +123,7 @@ const navigate = useNavigate();
     fontWeight: '500',
     cursor: 'pointer'
   }}
-              onClick={()=> navigate(`/student/events`)} 
+              onClick={()=> navigate(`/student/aimlclub`)} 
           >
               View Details
             </button>
@@ -288,7 +288,8 @@ const navigate = useNavigate();
               fontSize: '14px',
               fontWeight: '500',
               cursor: 'pointer'
-            }}>
+            }}
+            onClick={()=> navigate(`/student/tech`)} >
               View Details
             </button>
           </div>
@@ -309,13 +310,17 @@ const navigate = useNavigate();
             alignItems: 'center',
             marginBottom: '15px'
           }}>
-            <div style={{
-              width: '50px',
-              height: '50px',
-              backgroundColor: '#ddd',
-              borderRadius: '50%',
-              marginRight: '15px'
-            }}></div>
+            <img 
+  src={/student/}
+  alt="AIML Club" 
+  style={{
+    width: '50px',
+    height: '50px',
+    borderRadius: '50%',
+    marginRight: '15px',
+    objectFit: 'cover'
+  }} 
+/>
             <div>
               <h3 style={{
                 fontSize: '20px',
@@ -372,7 +377,8 @@ const navigate = useNavigate();
               fontSize: '14px',
               fontWeight: '500',
               cursor: 'pointer'
-            }}>
+            }}
+            onClick={()=> navigate(`/student/tech`)} >
               View Details
             </button>
           </div>

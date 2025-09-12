@@ -11,7 +11,7 @@ export default function FacultyDashboard() {
     name: "TechGenius Club",
     description:
       "Enhance programming skills through coding challenges, hackathons, and collaborative projects.",
-    banner: "images/techgenius_logo.png",
+    banner: "/techgenius_logo.png",
   });
 
   const [requests, setRequests] = useState([
