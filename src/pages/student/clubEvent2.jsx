@@ -243,7 +243,7 @@ const EventClub1 = () => {
           }}
         >
           <img
-            src="/images/aiml.png"
+            src="/images/techgenius.png"
             alt="Hero"
             style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />

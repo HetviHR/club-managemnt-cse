@@ -6,7 +6,6 @@ import authRoutes from "./routes/authRoutes.js";
 import clubRoutes from "./routes/clubRoutes.js";
 import eventRoutes from "./routes/eventRoutes.js";
 
-// Make sure this line is at the top of your file
 dotenv.config();
 
 const app = express();
@@ -19,13 +18,12 @@ app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/clubs", clubRoutes);
 app.use("/api/events", eventRoutes);
-
-// Connect MongoDB
 mongoose
   .connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.log(err));
 
 // Start server
+// eslint-disable-next-line no-undef
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

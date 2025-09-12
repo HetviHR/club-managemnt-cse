@@ -7,7 +7,7 @@ export const createEvent = async (req, res) => {
     const newEvent = new Event({ clubId, title, description });
     await newEvent.save();
     res.status(201).json(newEvent);
-  } catch (error) {
+  } catch  {
     res.status(500).json({ message: "Server error" });
   }
 };
@@ -19,7 +19,7 @@ export const getEvents = async (req, res) => {
     const filter = clubId ? { clubId } : {};
     const events = await Event.find(filter).populate('clubId');
     res.json(events);
-  } catch (error) {
+  } catch {
     res.status(500).json({ message: "Server error" });
   }
 };
@@ -31,7 +31,7 @@ export const updateEvent = async (req, res) => {
     const { title, description } = req.body;
     const updatedEvent = await Event.findByIdAndUpdate(eventId, { title, description }, { new: true });
     res.json(updatedEvent);
-  } catch (error) {
+  } catch {
     res.status(500).json({ message: "Server error" });
   }
 };
@@ -42,7 +42,7 @@ export const deleteEvent = async (req, res) => {
     const { eventId } = req.params;
     await Event.findByIdAndDelete(eventId);
     res.status(200).json({ message: "Event deleted" });
-  } catch (error) {
+  } catch {
     res.status(500).json({ message: "Server error" });
   }
 };
