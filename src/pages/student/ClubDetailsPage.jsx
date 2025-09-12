@@ -1,4 +1,24 @@
 import { useNavigate } from "react-router-dom";
+<<<<<<< HEAD
+const ClubDetailsPage = () => {
+const navigate = useNavigate();
+// Dummy user for demonstration; replace with actual user context
+const user = { name: "Student Name", id: "123" };
+
+const handleJoinClub = async (clubName) => {
+  try {
+    await fetch("/api/requests/join", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ club: clubName, student: user.name, studentId: user.id })
+    });
+    alert(`Request to join ${clubName} sent!`);
+  } catch (err) {
+    alert("Failed to send request");
+  }
+};
+=======
+>>>>>>> fb9cb2a18748e16dd00a7786a7ad7d1bff10d586
 
 const ClubDetailsPage = () => {
   const navigate = useNavigate();
@@ -68,6 +88,105 @@ const ClubDetailsPage = () => {
             boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
             textAlign: 'left'
           }}>
+<<<<<<< HEAD
+            <div style={{
+              width: '50px',
+              height: '50px',
+              backgroundColor: '#ddd',
+              borderRadius: '50%',
+              marginRight: '15px'
+            }}></div>
+            <div>
+              <h3 style={{
+                fontSize: '20px',
+                fontWeight: 'bold',
+                color: '#333',
+                margin: '0'
+              }}>
+                AIML Club
+              </h3>
+              <span style={{
+                background: 'linear-gradient(145deg, #3998D8, #1E5072)',
+                color: 'white',
+                padding: '4px 12px',
+                borderRadius: '15px',
+                fontSize: '12px',
+                fontWeight: '500'
+              }}>
+                Technology
+              </span>
+            </div>
+          </div>
+
+          {/* Description */}
+          <p style={{
+            fontSize: '14px',
+            color: '#666',
+            lineHeight: '1.5',
+            marginBottom: '80px'
+          }}>
+            Enhance programming skills through coding challenges, hackathons, and collaborative projects.
+          </p>
+
+          {/* Members and Button */}
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between'
+          }}>
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              fontSize: '14px',
+              color: '#666'
+            }}>
+              <span style={{ marginRight: '8px' }}>👥</span>
+              180 Members
+            </div>
+            <div style={{ display: 'flex', gap: '10px' }}>
+              <button
+                style={{
+                  background: 'linear-gradient(145deg, #3998D8, #1E5072)',
+                  color: 'white',
+                  border: 'none',
+                  padding: '10px 20px',
+                  borderRadius: '6px',
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  cursor: 'pointer'
+                }}
+                onClick={() => navigate(`/student/aimlclub`)}
+              >
+                View Details
+              </button>
+              <button
+                style={{
+                  background: '#ff9800',
+                  color: 'white',
+                  border: 'none',
+                  padding: '10px 20px',
+                  borderRadius: '6px',
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  cursor: 'pointer'
+                }}
+                onClick={() => handleJoinClub("AIML Club")}
+              >
+                Join Club
+              </button>
+            </div>
+          </div>
+        </div>
+        <div style={{
+          backgroundColor: 'white',
+          borderRadius: '12px',
+          padding: '30px',
+          width: '350px',
+          boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+          textAlign: 'left'
+        }}>
+=======
+>>>>>>> fb9cb2a18748e16dd00a7786a7ad7d1bff10d586
             {/* Club Header */}
             <div style={{ display: 'flex', alignItems: 'center', marginBottom: '15px' }}>
               <img 
@@ -124,7 +243,281 @@ const ClubDetailsPage = () => {
               </button>
             </div>
           </div>
+<<<<<<< HEAD
+
+          {/* Description */}
+          <p style={{
+            fontSize: '14px',
+            color: '#666',
+            lineHeight: '1.5',
+            marginBottom: '80px'
+          }}>
+            Enhance programming skills through coding challenges, hackathons, and collaborative projects.
+          </p>
+
+          {/* Members and Button */}
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between'
+          }}>
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              fontSize: '14px',
+              color: '#666'
+            }}>
+              <span style={{ marginRight: '8px' }}>👥</span>
+              180 Members
+            </div>
+            <div style={{ display: 'flex', gap: '10px' }}>
+              <button
+                style={{
+                  background: 'linear-gradient(145deg, #3998D8, #1E5072)',
+                  color: 'white',
+                  border: 'none',
+                  padding: '10px 20px',
+                  borderRadius: '6px',
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  cursor: 'pointer'
+                }}
+                onClick={() => handleJoinClub("CyberKavach Club")}
+              >
+                Join Club
+              </button>
+              <button
+                style={{
+                  background: 'linear-gradient(145deg, #3998D8, #1E5072)',
+                  color: 'white',
+                  border: 'none',
+                  padding: '10px 20px',
+                  borderRadius: '6px',
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  cursor: 'pointer'
+                }}
+                onClick={() => navigate(`/student/tech`)}
+              >
+                View Details
+              </button>
+            </div>
+          </div>
+        </div>
+        <div style={{
+          backgroundColor: 'white',
+          borderRadius: '12px',
+          padding: '30px',
+          width: '350px',
+          boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+          textAlign: 'left'
+        }}>
+          {/* Club Header */}
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            marginBottom: '15px'
+          }}>
+            <div style={{
+              width: '50px',
+              height: '50px',
+              backgroundColor: '#ddd',
+              borderRadius: '50%',
+              marginRight: '15px'
+            }}></div>
+            <div>
+              <h3 style={{
+                fontSize: '20px',
+                fontWeight: 'bold',
+                color: '#333',
+                margin: '0'
+              }}>
+                Techgenius Club
+              </h3>
+              <span style={{
+                background: 'linear-gradient(145deg, #3998D8, #1E5072)',
+                color: 'white',
+                padding: '4px 12px',
+                borderRadius: '15px',
+                fontSize: '12px',
+                fontWeight: '500'
+              }}>
+                Technology
+              </span>
+            </div>
+          </div>
+
+          {/* Description */}
+          <p style={{
+            fontSize: '14px',
+            color: '#666',
+            lineHeight: '1.5',
+            marginBottom: '80px'
+          }}>
+            Enhance programming skills through coding challenges, hackathons, and collaborative projects.
+          </p>
+
+          {/* Members and Button */}
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between'
+          }}>
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              fontSize: '14px',
+              color: '#666'
+            }}>
+              <span style={{ marginRight: '8px' }}>👥</span>
+              180 Members
+            </div>
+            <div style={{ display: 'flex', gap: '10px' }}>
+              <button
+                style={{
+                  background: '#ff9800',
+                  color: 'white',
+                  border: 'none',
+                  padding: '10px 20px',
+                  borderRadius: '6px',
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  cursor: 'pointer'
+                }}
+                onClick={() => handleJoinClub("Techgenius Club")}
+              >
+                Join Club
+              </button>
+              <button
+                style={{
+                  background: 'linear-gradient(145deg, #3998D8, #1E5072)',
+                  color: 'white',
+                  border: 'none',
+                  padding: '10px 20px',
+                  borderRadius: '6px',
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  cursor: 'pointer'
+                }}
+                onClick={() => navigate(`/student/tech`)}
+              >
+                View Details
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Eyecoders Club Card */}
+        <div style={{
+          backgroundColor: 'white',
+          borderRadius: '12px',
+          padding: '30px',
+          width: '350px',
+          boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+          textAlign: 'left'
+        }}>
+          {/* Club Header */}
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            marginBottom: '15px'
+          }}>
+            <img 
+  src={/student/}
+  alt="AIML Club" 
+  style={{
+    width: '50px',
+    height: '50px',
+    borderRadius: '50%',
+    marginRight: '15px',
+    objectFit: 'cover'
+  }} 
+/>
+            <div>
+              <h3 style={{
+                fontSize: '20px',
+                fontWeight: 'bold',
+                color: '#333',
+                margin: '0'
+              }}>
+                Eyecoders club
+              </h3>
+              <span style={{
+                background: 'linear-gradient(145deg, #3998D8, #1E5072)',
+                color: 'white',
+                padding: '4px 12px',
+                borderRadius: '15px',
+                fontSize: '12px',
+                fontWeight: '500'
+              }}>
+                Technology
+              </span>
+            </div>
+          </div>
+
+          {/* Description */}
+          <p style={{
+            fontSize: '14px',
+            color: '#666',
+            lineHeight: '1.5',
+            marginBottom: '80px'
+          }}>
+            Enhance programming skills through coding challenges, hackathons, and collaborative projects.
+          </p>
+
+          {/* Members and Button */}
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between'
+          }}>
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              fontSize: '14px',
+              color: '#666'
+            }}>
+              <span style={{ marginRight: '8px' }}>👥</span>
+              180 Members
+            </div>
+            <div style={{ display: 'flex', gap: '10px' }}>
+              <button
+                style={{
+                  background: '#ff9800',
+                  color: 'white',
+                  border: 'none',
+                  padding: '10px 20px',
+                  borderRadius: '6px',
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  cursor: 'pointer'
+                }}
+                onClick={() => handleJoinClub("Eyecoders Club")}
+              >
+                Join Club
+              </button>
+              <button
+                style={{
+                  background: 'linear-gradient(145deg, #3998D8, #1E5072)',
+                  color: 'white',
+                  border: 'none',
+                  padding: '10px 20px',
+                  borderRadius: '6px',
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  cursor: 'pointer'
+                }}
+                onClick={() => navigate(`/student/tech`)}
+              >
+                View Details
+              </button>
+            </div>
+          </div>
+        </div>
+
+=======
         ))}
+>>>>>>> fb9cb2a18748e16dd00a7786a7ad7d1bff10d586
       </div>
     </div>
   )

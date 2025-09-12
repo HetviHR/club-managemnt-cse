@@ -1,7 +1,8 @@
+
 import React from "react";
 import "./HODdashboard.css"; // Import the CSS file
 
-const HODDashboard = () => {
+function HODDashboard() {
   return (
     <div className="dashboard">
       <div className="dashboard-container">
