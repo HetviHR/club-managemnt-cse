@@ -1,0 +1,56 @@
+.dashboard {
+  min-height: 100vh;
+  background: #f5f8fc;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.dashboard-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+/* Stats Grid */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin: 20px 0 32px;
+}
+
+.stat-box {
+  background: linear-gradient(145deg, #3998D8, #1E5072);
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.stat-box h2 {
+  font-size: 28px;
+  margin: 0;
+  font-weight: bold;
+}
+
+.stat-box p {
+  font-size: 14px;
+  margin: 6px 0 0;
+}
+
+/* Blue card */
+.blue-card {
+  background: #e3f2fd;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.blue-card h3 {
+  font-size: 20px;
+  margin-bottom: 12px;
+  color: #1565c0;
+  border-bottom: 1px solid #90caf9;
+  padding-bottom: 6px;
+}

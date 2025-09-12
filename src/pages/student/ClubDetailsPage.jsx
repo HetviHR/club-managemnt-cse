@@ -37,7 +37,7 @@ const ClubDetailsPage = () => {
       category: "Technology",
       members: 180,
       description: "Enhance programming skills through coding challenges, hackathons, and collaborative projects.",
-      image: "/images/cyberkavach.jpg",
+      image: "/images/logo.png",
       link: "/student/cyber",
     },
     {
@@ -53,7 +53,7 @@ const ClubDetailsPage = () => {
       category: "Technology",
       members: 180,
       description: "Enhance programming skills through coding challenges, hackathons, and collaborative projects.",
-      image: "/images/eyecoders.jpg",
+      image: "/images/tech.png",
       link: "/student/eyecoders",
     },
   ];
