@@ -1,0 +1,43 @@
+.requests-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 10px; /* spacing between rows */
+}
+
+.requests-table th {
+  text-align: left;
+  padding: 10px 16px;
+  background: #1565c0;
+  color: white;
+  border-radius: 6px 6px 0 0;
+}
+
+.requests-table td {
+  padding: 12px 16px;
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+}
+
+.requests-table tr td:last-child {
+  text-align: center;
+}
+
+.approve-btn,
+.reject-btn {
+  padding: 6px 12px;
+  margin-right: 8px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.approve-btn {
+  background: #2e7d32;
+  color: white;
+}
+
+.reject-btn {
+  background: #c62828;
+  color: white;
+}

@@ -31,7 +31,7 @@ const EventClub = () => {
       isConvener: true,
     },
     {
-      name: 'Abhisek Patel',
+      name: 'Abhishek Patel',
       role: 'Faculty Coordinator',
       department: 'CSPIT CSE',
       isConvener: false,

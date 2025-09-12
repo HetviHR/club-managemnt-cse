@@ -5,8 +5,7 @@ import Sidebar from "../components/Sidebar";
 import { Routes, Route, Navigate } from "react-router-dom";
 import StudentBoard from "./StudentBoard";
 import ClubDetailsPage from "./student/ClubDetailsPage";
-import RequestsPage from "./student/RequestsPage";
-import ClubEvent from "./student/ClubEventsPage";
+// import RequestsPage from "./student/RequestsPage";
 import EventClub from "./student/ClubEventsPage";
 const StudentDashboard = () => {
   return (

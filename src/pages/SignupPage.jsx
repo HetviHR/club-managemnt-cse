@@ -64,7 +64,6 @@ const SignUp = () => {
         Club Management System
         <h1>Sign up</h1>
       </Typography>
-
       {error && (
         <Alert severity="error" sx={{ mb: 2 }}>
           {error} 
