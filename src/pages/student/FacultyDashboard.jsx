@@ -1,16 +1,17 @@
-import React, { useState, useEffect } from "react";
-import Navbar from "../../components/Navbar.jsx";
-import ClubHeader from "../../components/ClubHeader.jsx";
-import StatsCard from "../../components/StatsCard.jsx";
-import StudentRequests from "../../components/StudentRequests.jsx";
-import EventList from "../../components/EventList.jsx";
-import EventModal from "../../components/EventModal.jsx";
+import React, { useState } from "react";
+import Navbar from "../components/Navbar.jsx";
+import ClubHeader from "../components/ClubHeader.jsx";
+import Request from "../components/StudentRequests.jsx"; 
+import EventList from "../components/EventList.jsx";
+import EventModal from "../components/EventModal.jsx";
+import "./FacultyDashboard.css";
 
 export default function FacultyDashboard() {
-  const [club, setClub] = useState({
+  const [club] = useState({
     name: "TechGenius Club",
-    description: "Enhance programming skills through coding challenges, hackathons, and collaborative projects.",
-    banner: "/techgenius.png",
+    description:
+      "Enhance programming skills through coding challenges, hackathons, and collaborative projects.",
+    banner: "/techgenius_logo.png",
   });
 
   const [requests, setRequests] = useState([
@@ -19,18 +20,26 @@ export default function FacultyDashboard() {
   ]);
 
   const [events, setEvents] = useState([
-    { _id: "1", title: "Hackathon 2025", description: "24-hour coding competition", date: "2025-09-20" },
-    { _id: "2", title: "AI Workshop", description: "Learn basics of AI/ML", date: "2025-10-10" },
+    {
+      _id: "1",
+      title: "Hackathon 2025",
+      description: "24-hour coding competition",
+      date: "2025-09-20",
+    },
+    {
+      _id: "2",
+      title: "AI Workshop",
+      description: "Learn basics of AI/ML",
+      date: "2025-10-10",
+    },
   ]);
 
   const [modalOpen, setModalOpen] = useState(false);
   const [editingEvent, setEditingEvent] = useState(null);
 
-  // Approve/Reject handlers
   const handleApprove = (id) => setRequests(requests.filter((r) => r._id !== id));
   const handleReject = (id) => setRequests(requests.filter((r) => r._id !== id));
 
-  // Event CRUD handlers
   const handleAddEvent = () => {
     setEditingEvent(null);
     setModalOpen(true);
@@ -45,7 +54,11 @@ export default function FacultyDashboard() {
 
   const handleSaveEvent = (eventData) => {
     if (editingEvent) {
-      setEvents(events.map((e) => (e._id === editingEvent._id ? { ...eventData, _id: editingEvent._id } : e)));
+      setEvents(
+        events.map((e) =>
+          e._id === editingEvent._id ? { ...eventData, _id: editingEvent._id } : e
+        )
+      );
     } else {
       setEvents([...events, { ...eventData, _id: Date.now().toString() }]);
     }
@@ -53,22 +66,50 @@ export default function FacultyDashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="dashboard">
       <Navbar />
 
-      <div className="max-w-6xl mx-auto p-6">
+      <div className="dashboard-container">
         <ClubHeader club={club} />
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 my-6">
-          <StatsCard label="Members" value="180" />
-          <StatsCard label="Join Requests" value={requests.length} />
-          <StatsCard label="Events" value={events.length} />
+        {/* Stats */}
+        <div className="stats-grid">
+          <div className="stat-box">
+            <h2>180</h2>
+            <p>Members</p>
+          </div>
+          <div className="stat-box">
+            <h2>{requests.length}</h2>
+            <p>Join Requests</p>
+          </div>
+          <div className="stat-box">
+            <h2>{events.length}</h2>
+            <p>Events</p>
+          </div>
         </div>
 
-        <StudentRequests requests={requests} onApprove={handleApprove} onReject={handleReject} />
+        {/* Requests */}
+        <div className="blue-card">
+          <h3>Student Join Requests</h3>
+          <Request
+            requests={requests}
+            onApprove={handleApprove}
+            onReject={handleReject}
+          />
+        </div>
 
-        <EventsList events={events} onAdd={handleAddEvent} onEdit={handleEditEvent} onDelete={handleDeleteEvent} />
+        {/* Events */}
+        <div className="blue-card">
+          <h3>Manage Events</h3>
+          <EventList
+            events={events}
+            onAdd={handleAddEvent}
+            onEdit={handleEditEvent}
+            onDelete={handleDeleteEvent}
+          />
+        </div>
 
+        {/* Modal */}
         <EventModal
           show={modalOpen}
           onClose={() => setModalOpen(false)}

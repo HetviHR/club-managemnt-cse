@@ -2,7 +2,7 @@ import React from "react";
 import { Users, Calendar } from "lucide-react";
 
 
-const EventClub = () => {
+const EventClub1 = () => {
   const statsData = [
     {
       icon: <Users size={40} />,
@@ -209,7 +209,7 @@ const EventClub = () => {
       <header style={headerStyle}>
         <div style={{ width: "129px", height: "108px" }}>
           <img
-            src="/images/logo.png"
+            src="/images/techgenius_logo.png"
             alt="Club Logo"
             style={{
               width: "100%",
@@ -221,7 +221,7 @@ const EventClub = () => {
         </div>
 
         <div style={titleBadgeContainer}>
-          <h1 style={titleStyle}>AIML Club</h1>
+          <h1 style={titleStyle}>Techgenius Club</h1>
           <div style={badgeStyle}>
             <span style={badgeTextStyle}>Technology</span>
           </div>
@@ -334,4 +334,4 @@ const EventClub = () => {
   );
 };
 
-export default EventClub;
+export default EventClub1;
