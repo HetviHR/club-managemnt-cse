@@ -1,82 +1,62 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { useNavigate } from "react-router-dom";
+<<<<<<< HEAD
+const ClubDetailsPage = () => {
+const navigate = useNavigate();
+// Dummy user for demonstration; replace with actual user context
+const user = { name: "Student Name", id: "123" };
 
-const ClubDetails = () => {
-    const [club, setClub] = useState(null);
-    const [members, setMembers] = useState([]);
-    const [events, setEvents] = useState([]);
-    const [requestStatus, setRequestStatus] = useState("idle"); // 'idle', 'pending', 'accepted', 'rejected'
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+const handleJoinClub = async (clubName) => {
+  try {
+    await fetch("/api/requests/join", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ club: clubName, student: user.name, studentId: user.id })
+    });
+    alert(`Request to join ${clubName} sent!`);
+  } catch (err) {
+    alert("Failed to send request");
+  }
+};
+=======
+>>>>>>> fb9cb2a18748e16dd00a7786a7ad7d1bff10d586
 
-    const { clubId } = useParams();
-    const navigate = useNavigate();
-    const backendUrl = "http://localhost:5000";
+const ClubDetailsPage = () => {
+  const navigate = useNavigate();
 
-    const user = JSON.parse(localStorage.getItem('user'));
-    const userId = user?._id;
-
-    useEffect(() => {
-        const fetchClubData = async () => {
-            try {
-                // Fetch club details
-                const clubResponse = await axios.get(`${backendUrl}/api/clubs/${clubId}`);
-                setClub(clubResponse.data);
-
-                // Fetch members of this club
-                const membersResponse = await axios.get(`${backendUrl}/api/users?clubId=${clubId}`);
-                setMembers(membersResponse.data);
-
-                // Fetch events for this club
-                const eventsResponse = await axios.get(`${backendUrl}/api/events?clubId=${clubId}`);
-                setEvents(eventsResponse.data);
-
-                // Check student's request status
-                if (userId) {
-                    const statusResponse = await axios.get(`${backendUrl}/api/clubs/requests/status?studentId=${userId}&clubId=${clubId}`);
-                    setRequestStatus(statusResponse.data.status);
-                }
-
-                setLoading(false);
-            } catch (err) {
-                setError("Failed to fetch club details. Please try again.");
-                setLoading(false);
-                console.error(err);
-            }
-        };
-
-        if (clubId) {
-            fetchClubData();
-        }
-    }, [clubId, userId]);
-
-    const handleSendRequest = async () => {
-        if (!userId) {
-            alert("You must be logged in to send a request.");
-            return;
-        }
-        try {
-            await axios.post(`${backendUrl}/api/clubs/request`, { studentId: userId, clubId });
-            setRequestStatus("pending");
-            alert("Request sent successfully!");
-        } catch (err) {
-            console.error("Error sending request:", err);
-            alert("Failed to send request.");
-        }
-    };
-    
-    if (loading) {
-        return <div className="loading">Loading club details...</div>;
-    }
-
-    if (error) {
-        return <div className="error">{error}</div>;
-    }
-
-    if (!club) {
-        return <div className="error">Club not found.</div>;
-    }
+  const clubs = [
+    {
+      name: "AIML Club",
+      category: "Technology",
+      members: 180,
+      description: "Enhance programming skills through coding challenges, hackathons, and collaborative projects.",
+      image: "/images/logo.png", // public folder image
+      link: "/student/aimlclub",
+    },
+    {
+      name: "CyberKavach Club",
+      category: "Technology",
+      members: 180,
+      description: "Enhance programming skills through coding challenges, hackathons, and collaborative projects.",
+      image: "/images/cyberkavach.jpg",
+      link: "/student/cyber",
+    },
+    {
+      name: "Techgenius Club",
+      category: "Technology",
+      members: 180,
+      description: "Enhance programming skills through coding challenges, hackathons, and collaborative projects.",
+      image: "/images/techgenius_logo.png",
+      link: "/student/tech",
+    },
+    {
+      name: "Eyecoders Club",
+      category: "Technology",
+      members: 180,
+      description: "Enhance programming skills through coding challenges, hackathons, and collaborative projects.",
+      image: "/images/eyecoders.jpg",
+      link: "/student/eyecoders",
+    },
+  ];
 
     return (
         <div className="club-details-page">
